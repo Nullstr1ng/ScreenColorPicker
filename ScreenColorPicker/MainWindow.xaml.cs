@@ -65,7 +65,11 @@ namespace ScreenColorPicker
 
         private void MainWindow_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Clipboard.SetData(DataFormats.Text, this._currentHexColor);
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Clipboard.SetData(DataFormats.Text, this._currentHexColor);   
+            }
+
             Application.Current.Shutdown();
         }
 
@@ -107,13 +111,13 @@ namespace ScreenColorPicker
                 System.Drawing.Color clr = System.Drawing.Color.FromArgb(255, pixels[2], pixels[1], pixels[0]);
 
                 txRGB.Text = $"R:{clr.R} G:{clr.G} B:{clr.B}";
-                txRGBHex.Text = $"#{clr.A.ToString("X")} {clr.R.ToString("X")} {clr.G.ToString("X")} {clr.B.ToString("X")}";
+                txRGBHex.Text = $"#{clr.A.ToString("X2")} {clr.R.ToString("X2")} {clr.G.ToString("X2")} {clr.B.ToString("X2")}";
                 borderColor.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(clr.A, clr.R, clr.G, clr.B));
 
-                this._currentHexColor = $"#{clr.A.ToString("X")}" +
-                                        $"{clr.R.ToString("X")}" +
-                                        $"{clr.G.ToString("X")}" +
-                                        $"{clr.B.ToString("X")}";
+                this._currentHexColor = $"#{clr.A.ToString("X2")}" +
+                                        $"{clr.R.ToString("X2")}" +
+                                        $"{clr.G.ToString("X2")}" +
+                                        $"{clr.B.ToString("X2")}";
             }
         }
 
