@@ -67,7 +67,14 @@ namespace ScreenColorPicker
         {
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                Clipboard.SetData(DataFormats.Text, this._currentHexColor);   
+                try
+                {
+                    Clipboard.SetDataObject(this._currentHexColor);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
 
             Application.Current.Shutdown();
